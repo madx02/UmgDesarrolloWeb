@@ -1,0 +1,68 @@
+<h2>Crear Orden</h2>
+<div class="card">
+    <div class="card-header bg-primary text-white">Encabezado
+        <button type="button" id="btnGuardarPedido" class="btn btn-danger" (click)="saveOrder()">Guardar Orden</button>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="formClient" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+              <label for="orden">#Orden:</label>
+              <input type="text" class="form-control" formControlName="orderId" placeholder="Automatico" id="orden" readonly>
+          </div>
+          <div class="form-group">
+              <label for="sel1">Seleccione un cliente:</label>
+              <select class="form-control" formControlName="tcClient" (ngModelChange)="changeSelectedClient($event)" id="sel1" name="sellist1" required>
+                <option *ngFor="let tcClient of tcClients"  [ngValue]="tcClient">{{tcClient.fullname}}</option>
+              </select>
+          </div>
+
+          <div class="form-group" id="product" *ngIf="formClient.value.tcClient">
+            <h4>Agregue Productos:</h4>
+            <hr>
+            <div class="form-group row" id="seccionProduct">
+              <div class="col-md-4">
+                  <label for="sel2">Seleccione un producto</label>
+                  <select class="form-control col" formControlName="tcProduct" (ngModelChange)="changeSelectedProduct($event)" id="sel2" name="sellist2" required>
+                    <option *ngFor="let tcProduct of tcProducts"  [ngValue]="tcProduct">{{tcProduct.description}}</option>
+                  </select>
+              </div>
+              <div class="col-md-4">
+                  <label for="cant">Cantidad</label>
+                  <input class="form-control" type="number"  formControlName="cantidad" id="cant" name="cantidad" required/>
+              </div>
+              <div class="col-md-4">
+                  <input class="form-control btn btn-primary" type="submit" value="Agregar producto" [disabled]="!formClient.valid" id="sub" />
+              </div>
+            </div>
+          </div>
+      </form>
+    </div>
+</div>
+<br/>
+<div class="card" *ngIf="mostrarDetalle">
+    <div class="form-control card bg-dark text-white">Detalle
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tcDetail of tcDetails">
+                <td>{{tcDetail.tcProduct.description}}</td>
+                <td>{{tcDetail.cantidad}}</td>
+                <td>{{tcDetail.priceUnit}}</td>
+                <td>{{tcDetail.total}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="card-footer" style="text-align:right">
+      <strong>Total Order: {{totalOrder}}</strong>
+    </div>
+</div>
