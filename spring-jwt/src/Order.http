@@ -1,0 +1,48 @@
+GET http://localhost:8080/order/all HTTP/1.1
+
+###
+
+POST http://localhost:8080/order/add HTTP/1.1
+content-type: application/json
+
+{
+        "tcClient": {
+                "clientId": 1,
+                "fullname": "CLIENTE #1"
+        },
+        "tcDetail": [
+        {
+            "cantidad": 10,
+            "costUnit": 11.5,
+            "priceUnit": 12.0,
+            "tcProduct": {
+                "productId": 1,
+                "description": "PRODUCTO #1",
+                "priceUnit": 11.0,
+                "costUnit": 10.0
+            }
+        },
+        {
+            "cantidad": 10,
+            "costUnit": 11.5,
+            "priceUnit": 12.0,
+            "tcProduct": {
+                "productId": 2,
+                "description": "PRODUCTO #2",
+                "priceUnit": 12.0,
+                "costUnit": 11.0
+            }
+        },
+        {
+            "cantidad": 10,
+            "costUnit": 11.5,
+            "priceUnit": 12.0,
+            "tcProduct": {
+                "productId": 3,
+                "description": "PRODUCTO #3",
+                "priceUnit": 13.0,
+                "costUnit": 12.0
+            }
+        }]
+}
+
